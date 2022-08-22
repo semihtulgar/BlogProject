@@ -1,0 +1,38 @@
+﻿@{
+    Layout = "_AuthorLayout";
+}
+@model PostsTableViewModel
+<div class="row">
+    <div>
+        <a href="~/Author/Create" class="btn btn-success">Create a Post</a>
+    </div>
+    <div class="col-12 py-2">
+        <h3 class="text-center">Posts</h3>
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Category Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var post in @Model.Posts)
+                {
+                    <tr class="align-middle text-center">
+                        <th>@post.PostID</th>
+                        <td>@post.PostTitle</td>
+                        <td>@post.PostContent</td>
+                        <td>@post.Category.CategoryName</td>
+                        <td>
+                            <a class="btn btn-warning" asp-controller="Author" asp-action="Update" asp-route-id="@post.PostID" role="button">Update</a>
+                            <a asp-controller="Author" asp-action="Delete" asp-route-id="@post.PostID" class="btn btn-danger" role="button">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

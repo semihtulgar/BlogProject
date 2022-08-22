@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Detail";
+}
+@model PostViewModel
+
+<div class="row mt-5">
+    <div class="col-6">
+        <div class="image-container">
+            <h3 class="text-muted image-circle">#@Model.Category.CategoryName</h3>
+            <img class="image-container" src="~/pictures/@Model.PhotoName" />
+        </div>
+    </div>
+
+    <div class="col-6">
+        <h1>@Model.PostTitle</h1>
+        <p>@Model.PostContent</p>
+    </div>
+    <div class="d-flex justify-content-end">
+        <div>
+            <a class="btn btn-warning" asp-controller="Author" asp-action="Update" asp-route-id="@Model.PostID" role="button">Update</a>
+            <a class="btn btn-danger" asp-controller="Author" asp-action="Delete" asp-route-id="@Model.PostID" role="button">Delete</a>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    img {
+        max-height: 300px;
+        max-widht: 300px;
+        object-fit: cover;
+    }
+</style>
+
+
+

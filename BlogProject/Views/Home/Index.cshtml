@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<PostViewModel>
+<div class="container">
+    <h1 class="display-4 text-center">Posts</h1>
+</div>
+
+<div class="text-center">
+    @foreach (var post in Model)
+    {
+
+        <div class="card d-inline-block m-2" style="width: 18rem;">
+            <img src="~/pictures/@post.PhotoName" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">@post.PostTitle</h5>
+                <p class="card-text truncate">@post.PostContent</p>
+                <a asp-controller="Author" asp-action="Detail" asp-route-id="@post.PostID" class="btn btn-primary">Go Detail</a>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="d-flex justify-content-center mt-5">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item @(ViewBag.page == 1 ? "disabled" : "")">
+                <a class="page-link" asp-controller="Home" asp-action="Index" asp-route-page="@(ViewBag.page - 1)">Previous</a>
+            </li>
+
+            @for (int i = 1; i <= ViewBag.totalPage; i++)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Home" asp-action="Index" asp-route-page="@i">@i</a>
+                </li>
+            }
+
+            <li class="page-item @(ViewBag.page == ViewBag.totalPage ? "disabled" : "")">
+                <a class="page-link" asp-controller="Home" asp-action="Index" asp-route-page="@(ViewBag.page + 1)">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<style>
+    .truncate {
+        display: inline-block;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    img {
+        width: 200px;
+        height: 200px;
+    }
+</style>

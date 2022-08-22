@@ -1,0 +1,37 @@
+﻿@{
+    Layout = "_AuthorLayout";
+}
+
+@model PostUpdateViewModel
+
+<h3 class="text-center">Update Post</h3>
+<form asp-controller="Author" asp-action="Update" method="post">
+    <input type="hidden" asp-for="PostID" />
+
+    <div class="mb-3">
+        <label asp-for="PostTitle" class="form-label">Post Title</label>
+        <input type="text" asp-for="PostTitle" class="form-control" id="PostTitle">
+        <span class="text-danger" asp-validation-for="PostTitle"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="PostContent" class="form-label">Post Content</label>
+        <textarea asp-for="PostContent" class="form-control" id="PostContent" rows="3"></textarea>
+        <span class="text-danger" asp-validation-for="PostContent"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Photo" class="form-label">Select a Picture</label>
+        <input class="form-control" asp-for="Photo" type="file" id="Photo">
+        <span class="text-danger" asp-validation-for="Photo"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CategoryID" class="form-label">Select a Category</label>
+        <select asp-for="CategoryID" asp-items="@ViewBag.categories" class="form-select">
+        </select>
+        <span class="text-danger" asp-validation-for="CategoryID"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Update Post</button>
+</form>
