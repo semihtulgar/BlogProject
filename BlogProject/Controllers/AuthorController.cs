@@ -121,7 +121,15 @@ namespace BlogProject.Controllers
                 return View();
             }
 
-            _postRepository.Update(_mapper.Map<Post>(request));
+            // Save Photo
+            var photoName = Guid.NewGuid().ToString();
+            SavePhoto(request.Photo, photoName);
+
+            var updatedPost = _mapper.Map<Post>(request);
+
+            updatedPost.PhotoName = $"{photoName}{Path.GetExtension(request.Photo.FileName)}";
+            
+            _postRepository.Update(updatedPost);
 
             return RedirectToAction("Index", "Author");
         }
