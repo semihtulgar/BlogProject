@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="m-3">
+    <a asp-controller="Dashboard" asp-action="CreatePost" class="btn btn-success">Create a Post</a>
+</div>
+<div class="row">
+
+    <div class="col-12 py-2">
+        <h3 class="text-center">Posts</h3>
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var post in ViewBag.posts as List<PostDto>)
+                {
+                    <tr class="align-middle text-center">
+                        <th>@post.PostId</th>
+                        <td>@post.PostTitle</td>
+                        <td>@post.PostContent</td>
+                        <td>
+                            <a class="btn btn-warning" asp-controller="Dashboard" asp-action="UpdatePost" asp-route-id="@post.PostId" role="button">Update</a>
+                            <a class="btn btn-danger" asp-controller="Dashboard" asp-action="Remove" asp-route-id="@post.PostId" role="button">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

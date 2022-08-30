@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "CreatePost";
+}
+
+<h1 class="text-center mt-3">~ Create Post ~</h1>
+
+
+@model PostCreateViewModel
+<section class="section-sm">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form method="post" asp-action="CreatePost" asp-controller="Dashboard" enctype="multipart/form-data">
+                    <div class="form-group mb-3">
+                        <label asp-for="PostTitle">Post Title</label>
+                        <input asp-for="PostTitle" type="text" name="PostTitle" class="form-control" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="PostContent">Post Content</label>
+                        <textarea asp-for="PostContent" name="PostContent" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="Photo" class="form-label">Pick Photo</label>
+                        <input asp-for="Photo" class="form-control" type="file" id="Photo">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="message">Your Message Here</label>
+                        <select asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.categories, "CategoryId","CategoryName"))" class="form-control"></select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Now</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+

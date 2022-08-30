@@ -1,0 +1,82 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8  mb-5 mb-lg-0">
+                @foreach (var item in ViewBag.posts as List<PostDto>)
+                {
+                    <article class="row mb-5">
+
+                        <div class="col-md-4 mb-4 mb-md-0">
+                            <div>
+                                <img src="~/pictures/@item.PhotoName" class="img-fluid" alt="post-thumb"
+                                 style="height:200px; object-fit: cover;">
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h3 class="h5">
+                                <a class="post-title" asp-controller="Post" asp-action="Index" asp-route-id="@item.PostId">
+                                    @item.PostTitle
+                                </a>
+                            </h3>
+                            <p class="truncate">
+                                @item.PostContent
+                            </p> <a asp-controller="Post" asp-action="Index" asp-route-id="@item.PostId" class="btn btn-outline-primary">Continue Reading</a>
+                        </div>
+                    </article>
+                }
+            </div>
+            <aside class="col-lg-4">
+                <!-- Search -->
+                <div class="widget">
+                    <h5 class="widget-title"><span>Search</span></h5>
+                    <form action="/logbook-hugo/search" class="widget-search">
+                        <input id="search-query" name="s" type="search" placeholder="Type &amp; Hit Enter...">
+                        <button type="submit">
+                            <i class="ti-search"></i>
+                        </button>
+                    </form>
+                </div>
+                <!-- categories -->
+                <div class="widget">
+                    <h5 class="widget-title"><span>Categories</span></h5>
+                    <ul class="list-unstyled widget-list">
+                        @foreach (var item in ViewBag.categoriesWithCount as List<CategoriesWithPostCount>)
+                        {
+                            <li>
+                                <a asp-action="PostOfCategory" asp-controller="Post" asp-route-id="@item.CategoryId" class="d-flex">
+                                    @item.CategoryName
+                                    <small class="ml-auto">(@item.Posts.Count)</small>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+
+<div class="d-flex justify-content-center mt-5">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item @(ViewBag.page == 1 ? "disabled" : "")">
+                <a class="page-link" asp-controller="Home" asp-action="Index" asp-route-page="@(ViewBag.page - 1)">Previous</a>
+            </li>
+
+            @for (int i = 1; i <= ViewBag.totalPage; i++)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Home" asp-action="Index" asp-route-page="@i">@i</a>
+                </li>
+            }
+
+            <li class="page-item @(ViewBag.page == ViewBag.totalPage ? "disabled" : "")">
+                <a class="page-link" asp-controller="Home" asp-action="Index" asp-route-page="@(ViewBag.page + 1)">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>

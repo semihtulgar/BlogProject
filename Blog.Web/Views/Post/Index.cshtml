@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    string photoName = ViewBag.postInDetail.PhotoName;
+}
+
+@model CommentCreateDto
+<section class="section">
+    <div class="container">
+        <article class="row mb-4">
+            <div class="col-lg-10 mx-auto mb-4">
+                <h1 class="h2 mb-3">@ViewBag.postInDetail.PostTitle</h1>
+                <ul class="list-inline post-meta mb-3">
+                    <li class="list-inline-item">Created Date : @ViewBag.postInDetail.CreatedDate</li>
+                </ul>
+            </div>
+            <div class="col-12 mb-3">
+                <div class="post-slider d-flex justify-content-center">
+                    <img src="~/pictures/@photoName" class="img-fluid picture" alt="post-thumb">
+                </div>
+            </div>
+            <div class="col-lg-10 mx-auto">
+                <div class="content">
+                    <p>@ViewBag.postInDetail.PostContent</p>
+                </div>
+            </div>
+        </article>
+
+        <div class="col-md-6">
+            <form asp-controller="Post" asp-action="CreateComment" method="post">
+                <div>
+                    <input type="hidden" value="@ViewBag.PostInDetail.PostId" asp-for="PostId" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="CommentText">Your Comment Here</label>
+                    <textarea asp-for="CommentText" name="CommentText" class="form-control"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Now</button>
+            </form>
+        </div>
+
+        <div class="col-md-6 mt-4">
+            <h3>Comments</h3>
+            @foreach (var comment in @ViewBag.postInDetail.Comments)
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <p>@comment.CommentText</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+

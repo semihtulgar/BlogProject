@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "UpdatePost";
+}
+
+<h1 class="text-center mt-3">~ Update Post ~</h1>
+
+@model PostUpdateViewModel
+<section class="section-sm">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form method="post" asp-action="UpdatePost" asp-controller="Dashboard" enctype="multipart/form-data">
+                    <input asp-for="PostId" value="@ViewBag.post.PostId" type="hidden" class="form-control" required>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="PostTitle">Post Title</label>
+                        <input value="@ViewBag.post.PostTitle" asp-for="PostTitle" type="text" name="PostTitle" class="form-control" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="PostContent">Post Content</label>
+                        <textarea asp-for="PostContent" class="form-control" required>@ViewBag.post.PostContent</textarea>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="Photo" class="form-label">Pick Photo</label>
+                        <input asp-for="Photo" class="form-control" type="file" id="Photo" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="CategoryId">Select a Category</label>
+                        <select asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.categories, "CategoryId","CategoryName", ViewBag.post.CategoryId))" class="form-control" required></select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Now</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
